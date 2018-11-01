@@ -262,7 +262,6 @@ def break_key(pub):
     """
     pass  # Delete this line and complete this method
 
-<<<<<<< HEAD
 def is_prime(number):
     """
     checks to see if that number is prime
@@ -276,7 +275,7 @@ def is_prime(number):
             return False
         other_number += 1
     return True
-=======
+
 def calculate_private_key(e, z):
     '''
     Given an e and a totient calculate some d so d*e % z = 1
@@ -300,7 +299,6 @@ def inverse(a, n):
     if t < 0:
         t += n
     return t
->>>>>>> 6004752989225017496c5f9999aac05e87d37b03
 
 
 # ---------------------------------------
