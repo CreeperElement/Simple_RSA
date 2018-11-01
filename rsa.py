@@ -281,9 +281,9 @@ def calculate_private_key(e, z):
     Given an e and a totient calculate some d so d*e % z = 1
     :param e: Some prime factor
     :param z: The totient of
-    :return: Private key d, e
+    :return: Private key (d, e)
     '''
-
+    return inverse(e, z), e
 
 def inverse(a, n):
     t = 0
