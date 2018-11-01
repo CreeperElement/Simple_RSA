@@ -3,8 +3,8 @@
 - Fall 2017
 - Lab N
 - Names:
-  - 
-  -
+  - Seth Fenske
+  - Jason Urban
 
 16-bit RSA
 """
@@ -262,6 +262,7 @@ def break_key(pub):
     """
     pass  # Delete this line and complete this method
 
+<<<<<<< HEAD
 def is_prime(number):
     """
     checks to see if that number is prime
@@ -275,6 +276,31 @@ def is_prime(number):
             return False
         other_number += 1
     return True
+=======
+def calculate_private_key(e, z):
+    '''
+    Given an e and a totient calculate some d so d*e % z = 1
+    :param e: Some prime factor
+    :param z: The totient of
+    :return: Private key d, e
+    '''
+
+
+def inverse(a, n):
+    t = 0
+    r = n
+    newt = 1
+    newr = a
+    while newr != 0:
+        quotient = r // newr
+        (t, newt) = (newt, t - quotient * newt)
+        (r, newr) = (newr, r - quotient * newr)
+    if r > 1:
+        return "a is not invertible"
+    if t < 0:
+        t += n
+    return t
+>>>>>>> 6004752989225017496c5f9999aac05e87d37b03
 
 
 # ---------------------------------------
