@@ -300,6 +300,17 @@ def inverse(a, n):
         t += n
     return t
 
+def compute_totient(p, q):
+    '''
+    Get the totient
+    :param p: One factor of n
+    :param q: Second factor of n
+    :return: Totient of prime of factors p*q
+    '''
+    return (p-1)*(q-1)
+
+
+# Your code and additional functions go here. (Replace this line.)
 
 # ---------------------------------------
 # Do not modify code below this line
