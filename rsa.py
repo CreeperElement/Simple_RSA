@@ -215,7 +215,8 @@ def create_keys():
 
     :return: the keys as a three-tuple: (e,d,n)
     """
-
+    p = get_prime_number()
+    q = get_prime_number()
     pass  # Delete this line and complete this method
 
 
@@ -224,15 +225,28 @@ def apply_key(key, m):
     Apply the key, given as a tuple (e,n) or (d,n) to the message.
 
     This can be used both for encryption and decryption.
-
+    :author: Jason Urban
     :param tuple key: (e,n) or (d,n)
     :param int m: the message as a number 1 < m < n (roughly)
     :return: the message with the key applied. For example,
              if given the public key and a message, encrypts the message
              and returns the ciphertext.
     """
+    c = math.pow(m, key[0]) % key[1]
+    return c
 
-    pass  # Delete this line and complete this method
+def get_prime_number():
+    """
+    gets a prime number between the max prime and min prime conditions
+    :author: Jason Urban
+    :return: a prime number
+    """
+    n = random.randrange(MIN_PRIME, MAX_PRIME)
+    while not is_prime(n):
+        n = random.randrange(MIN_PRIME, MIN_PRIME)
+    return n
+
+
 
 
 def break_key(pub):
@@ -247,6 +261,20 @@ def break_key(pub):
     :return: a tuple containing the private key (d,n)
     """
     pass  # Delete this line and complete this method
+
+def is_prime(number):
+    """
+    checks to see if that number is prime
+    :author: Jason Urban
+    :param number:
+    :return:
+    """
+    other_number = 2
+    while other_number < number:
+        if number % other_number == 0:
+            return False
+        other_number += 1
+    return True
 
 def calculate_private_key(e, z):
     '''
@@ -271,7 +299,6 @@ def inverse(a, n):
     if t < 0:
         t += n
     return t
-
 def compute_totient(p, q):
     '''
     Get the totient
@@ -282,6 +309,8 @@ def compute_totient(p, q):
     return (p-1)*(q-1)
 
 # Your code and additional functions go here. (Replace this line.)
+=======
+>>>>>>> 539a1c9e7d38be92515de3b1893238cf91610071
 
 # ---------------------------------------
 # Do not modify code below this line
