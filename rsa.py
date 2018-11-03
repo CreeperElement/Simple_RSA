@@ -46,7 +46,6 @@ def main():
     else:
         print("Unknown action: '{0}'".format(action))
 
-
 def create_keys_interactive():
     """
     Create new public keys
@@ -247,6 +246,20 @@ def get_prime_number():
     return n
 
 
+primes = [2, 3]
+
+
+def get_nth_prime(n):
+    """
+    Gets the nth prime, generates the prime if it doesn't exist yet
+    :param n: The index of the prime from 0
+    :return: The nth prime from 0
+    """
+    if n > len(primes):
+        for i in range(len(primes), n):
+                primes.append(6*i -1)
+                primes.append(6*i + 1)
+    return primes[n-1]
 
 
 def break_key(pub):
@@ -260,7 +273,16 @@ def break_key(pub):
     :param pub: a tuple containing the public key (e,n)
     :return: a tuple containing the private key (d,n)
     """
-    pass  # Delete this line and complete this method
+    minimum = int(MIN_PRIME)
+    maximum = int(MAX_PRIME)
+    p = pub
+    q = 1
+    for i in range(minimum, maximum):
+        if pub % i == 0:
+            p = i
+            q = pub // i
+    return p, q
+
 
 def is_prime(number):
     """
@@ -309,9 +331,6 @@ def compute_totient(p, q):
     return (p-1)*(q-1)
 
 # Your code and additional functions go here. (Replace this line.)
-=======
->>>>>>> 539a1c9e7d38be92515de3b1893238cf91610071
-
 # ---------------------------------------
 # Do not modify code below this line
 # ---------------------------------------
@@ -341,4 +360,6 @@ def get_private_key(key_pair):
     return (key_pair[1], key_pair[2])
 
 
-main()
+#main()
+primes = break_key(40723)
+print(primes)
