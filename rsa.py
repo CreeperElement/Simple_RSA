@@ -275,13 +275,18 @@ def break_key(pub):
     """
     minimum = int(MIN_PRIME)
     maximum = int(MAX_PRIME)
-    p = pub
+    n = pub[1]
+    e = pub[0]
+    p = n
     q = 1
+
     for i in range(minimum, maximum):
-        if pub % i == 0:
+        if n % i == 0:
             p = i
-            q = pub // i
-    return p, q
+            q = n // i
+
+    d = calculate_private_key(e, compute_totient(p, q))
+    return d
 
 
 def is_prime(number):
@@ -305,7 +310,7 @@ def calculate_private_key(e, z):
     :param z: The totient of
     :return: Private key (d, e)
     '''
-    return inverse(e, z), e
+    return e, inverse(e, z)
 
 def inverse(a, n):
     t = 0
@@ -321,6 +326,8 @@ def inverse(a, n):
     if t < 0:
         t += n
     return t
+
+
 def compute_totient(p, q):
     '''
     Get the totient
@@ -360,6 +367,5 @@ def get_private_key(key_pair):
     return (key_pair[1], key_pair[2])
 
 
-#main()
-primes = break_key(40723)
-print(primes)
+main()
+#print(break_key((17, 95321)))
