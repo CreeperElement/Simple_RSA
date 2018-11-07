@@ -10,6 +10,7 @@
 """
 
 import random
+import math
 import sys
 
 # Use these named constants as you write your code
