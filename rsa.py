@@ -8,7 +8,7 @@
 
 16-bit RSA
 """
-
+import math
 import random
 import sys
 
@@ -45,6 +45,7 @@ def main():
         break_key_interactive()
     else:
         print("Unknown action: '{0}'".format(action))
+
 
 def create_keys_interactive():
     """
@@ -111,7 +112,7 @@ def encrypt_message_interactive():
     print("Encrypted message:", encrypted)
 
 
-def decrypt_message_interactive(priv = None):
+def decrypt_message_interactive(priv=None):
     """
     Decrypt a message
     """
@@ -211,12 +212,17 @@ def compute_checksum(string):
 def create_keys():
     """
     Create the public and private keys.
-
+    :author: Jason Urban
     :return: the keys as a three-tuple: (e,d,n)
     """
     p = get_prime_number()
     q = get_prime_number()
-    pass  # Delete this line and complete this method
+    while (q == p):
+        q = get_prime_number()
+    n = p * q
+    z = (p - 1) * (q - 1)
+    d = inverse(PUBLIC_EXPONENT, z)
+    return PUBLIC_EXPONENT, d, n
 
 
 def apply_key(key, m):
@@ -233,6 +239,7 @@ def apply_key(key, m):
     """
     c = math.pow(m, key[0]) % key[1]
     return c
+
 
 def get_prime_number():
     """
@@ -257,9 +264,9 @@ def get_nth_prime(n):
     """
     if n > len(primes):
         for i in range(len(primes), n):
-                primes.append(6*i -1)
-                primes.append(6*i + 1)
-    return primes[n-1]
+            primes.append(6 * i - 1)
+            primes.append(6 * i + 1)
+    return primes[n - 1]
 
 
 def break_key(pub):
@@ -303,6 +310,7 @@ def is_prime(number):
         other_number += 1
     return True
 
+
 def calculate_private_key(e, z):
     '''
     Given an e and a totient calculate some d so d*e % z = 1
@@ -311,6 +319,7 @@ def calculate_private_key(e, z):
     :return: Private key (d, e)
     '''
     return e, inverse(e, z)
+
 
 def inverse(a, n):
     t = 0
@@ -335,7 +344,8 @@ def compute_totient(p, q):
     :param q: Second factor of n
     :return: Totient of prime of factors p*q
     '''
-    return (p-1)*(q-1)
+    return (p - 1) * (q - 1)
+
 
 # Your code and additional functions go here. (Replace this line.)
 # ---------------------------------------
@@ -368,4 +378,4 @@ def get_private_key(key_pair):
 
 
 main()
-#print(break_key((17, 95321)))
+# print(break_key((17, 95321)))
