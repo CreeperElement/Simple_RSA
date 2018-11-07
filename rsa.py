@@ -10,7 +10,6 @@
 """
 
 import random
-import math
 import sys
 
 # Use these named constants as you write your code
@@ -46,7 +45,6 @@ def main():
         break_key_interactive()
     else:
         print("Unknown action: '{0}'".format(action))
-
 
 def create_keys_interactive():
     """
@@ -248,6 +246,20 @@ def get_prime_number():
     return n
 
 
+primes = [2, 3]
+
+
+def get_nth_prime(n):
+    """
+    Gets the nth prime, generates the prime if it doesn't exist yet
+    :param n: The index of the prime from 0
+    :return: The nth prime from 0
+    """
+    if n > len(primes):
+        for i in range(len(primes), n):
+                primes.append(6*i -1)
+                primes.append(6*i + 1)
+    return primes[n-1]
 
 
 def break_key(pub):
@@ -261,7 +273,21 @@ def break_key(pub):
     :param pub: a tuple containing the public key (e,n)
     :return: a tuple containing the private key (d,n)
     """
-    pass  # Delete this line and complete this method
+    minimum = int(MIN_PRIME)
+    maximum = int(MAX_PRIME)
+    n = pub[1]
+    e = pub[0]
+    p = n
+    q = 1
+
+    for i in range(minimum, maximum):
+        if n % i == 0:
+            p = i
+            q = n // i
+
+    d = calculate_private_key(e, compute_totient(p, q))
+    return d
+
 
 def is_prime(number):
     """
@@ -284,7 +310,7 @@ def calculate_private_key(e, z):
     :param z: The totient of
     :return: Private key (d, e)
     '''
-    return inverse(e, z), e
+    return e, inverse(e, z)
 
 def inverse(a, n):
     t = 0
@@ -301,6 +327,7 @@ def inverse(a, n):
         t += n
     return t
 
+
 def compute_totient(p, q):
     '''
     Get the totient
@@ -310,9 +337,7 @@ def compute_totient(p, q):
     '''
     return (p-1)*(q-1)
 
-
 # Your code and additional functions go here. (Replace this line.)
-
 # ---------------------------------------
 # Do not modify code below this line
 # ---------------------------------------
@@ -343,3 +368,4 @@ def get_private_key(key_pair):
 
 
 main()
+#print(break_key((17, 95321)))
