@@ -294,8 +294,7 @@ def break_key(pub):
             p = i
             q = n // i
 
-    d = calculate_private_key(e, compute_totient(p, q))
-    return d
+    return inverse(e,compute_totient(p,q)), n
 
 
 def is_prime(number):
@@ -320,7 +319,7 @@ def calculate_private_key(e, z):
     :param z: The totient of
     :return: Private key (d, e)
     '''
-    return e, inverse(e, z)
+    return PUBLIC_EXPONENT, inverse(e, z)
 
 
 def inverse(a, n):
