@@ -255,22 +255,6 @@ def get_prime_number():
     return n
 
 
-primes = [2, 3]
-
-
-def get_nth_prime(n):
-    """
-    Gets the nth prime, generates the prime if it doesn't exist yet
-    :param n: The index of the prime from 0
-    :return: The nth prime from 0
-    """
-    if n > len(primes):
-        for i in range(len(primes), n):
-            primes.append(6 * i - 1)
-            primes.append(6 * i + 1)
-    return primes[n - 1]
-
-
 def break_key(pub):
     """
     Break a key.  Given the public key, find the private key.
@@ -279,6 +263,7 @@ def break_key(pub):
     You can follow the steps in the "optional" part of the in-class
     exercise.
 
+    :author: Seth Fenske
     :param pub: a tuple containing the public key (e,n)
     :return: a tuple containing the private key (d,n)
     """
@@ -315,6 +300,7 @@ def is_prime(number):
 def calculate_private_key(e, z):
     '''
     Given an e and a totient calculate some d so d*e % z = 1
+    :author: Seth Fenske
     :param e: Some prime factor
     :param z: The totient of
     :return: Private key (d, e)
@@ -323,6 +309,13 @@ def calculate_private_key(e, z):
 
 
 def inverse(a, n):
+    '''
+    Executes Euclids Extended Algorithm
+    :author: Seth Fenske
+    :param a: Public exponent
+    :param n: Totient
+    :return: Returns the private key
+    '''
     t = 0
     r = n
     newt = 1
@@ -341,6 +334,7 @@ def inverse(a, n):
 def compute_totient(p, q):
     '''
     Get the totient
+    :author: Seth Fenske
     :param p: One factor of n
     :param q: Second factor of n
     :return: Totient of prime of factors p*q
