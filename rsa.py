@@ -216,8 +216,10 @@ def create_keys():
     :return: the keys as a three-tuple: (e,d,n)
     """
     p = get_prime_number()
+    while ((p - 1) % PUBLIC_EXPONENT == 0):
+        p = get_prime_number()
     q = get_prime_number()
-    while (q == p):
+    while (q == p or (q - 1) % PUBLIC_EXPONENT == 0):
         q = get_prime_number()
     n = p * q
     z = (p - 1) * (q - 1)
@@ -237,8 +239,8 @@ def apply_key(key, m):
              if given the public key and a message, encrypts the message
              and returns the ciphertext.
     """
-    c = math.pow(m, key[0]) % key[1]
-    return c
+    c = (m ** key[0]) % key[1]
+    return int(c)
 
 
 def get_prime_number():
@@ -247,9 +249,9 @@ def get_prime_number():
     :author: Jason Urban
     :return: a prime number
     """
-    n = random.randrange(MIN_PRIME, MAX_PRIME)
+    n = random.randrange(int(MIN_PRIME), int(MAX_PRIME))
     while not is_prime(n):
-        n = random.randrange(MIN_PRIME, MIN_PRIME)
+        n = random.randrange(int(MIN_PRIME), int(MAX_PRIME))
     return n
 
 
